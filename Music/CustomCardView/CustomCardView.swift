@@ -35,5 +35,49 @@ class CustomCardView: UIView {
         cardContainerView.layer.shadowRadius = 20
         return cardContainerView
     }()
+    
+    lazy var cardImageView: UIImageView = {
+        let cardImageView = UIImageView()
+        cardImageView.translatesAutoresizingMaskIntoConstraints = false
+        cardImageView.contentMode = .scaleAspectFill
+        cardImageView.backgroundColor = .black
+        return cardImageView
+    }()
+    
+    lazy var overlayView: UIView = {
+        let overlayView = UIView()
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        return overlayView
+    }()
+    
+    lazy var profileBorderView: UIView = {
+        let profileBorderView = UIView()
+        profileBorderView.translatesAutoresizingMaskIntoConstraints = false
+        profileBorderView.backgroundColor = .clear
+        profileBorderView.layer.borderWidth = 1
+        profileBorderView.layer.borderColor = UIColor.white.cgColor
+        profileBorderView.layer.cornerRadius = 25
+        return profileBorderView
+    }()
+    
+    lazy var cardProfileImageView: UIImageView = {
+        let cardProfileImageView = UIImageView()
+        cardProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+        cardProfileImageView.contentMode = .scaleAspectFill
+        cardProfileImageView.backgroundColor = .black
+        cardProfileImageView.clipsToBounds = true
+        cardProfileImageView.layer.cornerRadius = 20
+        return cardProfileImageView
+    }()
+    
+    lazy var addProfileImageButton: UIButton = {
+        let addProfileImageButton = UIButton()
+        addProfileImageButton.translatesAutoresizingMaskIntoConstraints = false
+        addProfileImageButton.backgroundColor = .white
+        addProfileImageButton.setBackgroundImage(UIImage(named: "plus"), for: .normal)
+        addProfileImageButton.layer.cornerRadius = 10
+        return addProfileImageButton
+    }()
 
 }
