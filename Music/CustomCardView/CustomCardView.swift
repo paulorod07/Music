@@ -126,7 +126,7 @@ class CustomCardView: UIView {
         super.init(frame: frame)
         self.viewMode = viewMode
         self.cardViewModel = cardViewModel
-        self.addSubview()
+        addSubview()
     }
     
     required init?(coder: NSCoder) {
@@ -134,34 +134,34 @@ class CustomCardView: UIView {
     }
     
     private func addSubview() {
-        self.addSubview(self.cardContainerView)
-        self.cardContainerView.addSubview(self.cardImageView)
-        self.cardContainerView.addSubview(self.overlayView)
-        self.cardContainerView.addSubview(self.profileBorderView)
-        self.cardContainerView.addSubview(self.cardProfileImageView)
-        self.cardContainerView.addSubview(self.addProfileImageButton)
-        self.cardContainerView.addSubview(self.cardCategoryTitleLabel)
-        self.cardContainerView.addSubview(self.cardCategoryDateLabel)
-        self.cardContainerView.addSubview(self.cardTitleLabel)
-        self.cardContainerView.addSubview(self.likeAndTimeLabel)
-        self.cardContainerView.addSubview(self.descriptionTitleLabel)
-        self.updateLayout(for: self.viewMode ?? .card)
+        addSubview(cardContainerView)
+        cardContainerView.addSubview(cardImageView)
+        cardContainerView.addSubview(overlayView)
+        cardContainerView.addSubview(profileBorderView)
+        cardContainerView.addSubview(cardProfileImageView)
+        cardContainerView.addSubview(addProfileImageButton)
+        cardContainerView.addSubview(cardCategoryTitleLabel)
+        cardContainerView.addSubview(cardCategoryDateLabel)
+        cardContainerView.addSubview(cardTitleLabel)
+        cardContainerView.addSubview(likeAndTimeLabel)
+        cardContainerView.addSubview(descriptionTitleLabel)
+        updateLayout(for: viewMode ?? .card)
     }
     
     private func updateLayout(for mode: ViewMode) {
         switch mode {
         case .full:
-            self.containerLeadingConstraints?.constant = 0
-            self.containerTopConstraints?.constant = 0
-            self.containerTrailingConstraints?.constant = 0
-            self.containerBottomConstraints?.constant = 0
-            self.descriptionTitleLabel.isHidden = false
+            containerLeadingConstraints?.constant = 0
+            containerTopConstraints?.constant = 0
+            containerTrailingConstraints?.constant = 0
+            containerBottomConstraints?.constant = 0
+            descriptionTitleLabel.isHidden = false
         case .card:
-            self.containerLeadingConstraints?.constant = 30
-            self.containerTopConstraints?.constant = 15
-            self.containerTrailingConstraints?.constant = -30
-            self.containerBottomConstraints?.constant = -15
-            self.descriptionTitleLabel.isHidden = true
+            containerLeadingConstraints?.constant = 30
+            containerTopConstraints?.constant = 15
+            containerTrailingConstraints?.constant = -30
+            containerBottomConstraints?.constant = -15
+            descriptionTitleLabel.isHidden = true
         }
     }
 

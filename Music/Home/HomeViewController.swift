@@ -12,9 +12,9 @@ class HomeViewController: UIViewController {
     var homeView: HomeView?
     
     override func loadView() {
-        self.homeView = HomeView()
-        self.homeView?.setupTableViewProtocols(delegate: self, dataSource: self)
-        self.view = self.homeView
+        homeView = HomeView()
+        homeView?.setupTableViewProtocols(delegate: self, dataSource: self)
+        view = homeView
     }
 
     override func viewDidLoad() {

@@ -18,14 +18,14 @@ class HomeView: UIView {
     }()
     
     func setupTableViewProtocols(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
-        self.tableView.delegate = delegate
-        self.tableView.dataSource = dataSource
+        tableView.delegate = delegate
+        tableView.dataSource = dataSource
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.addSubview(self.tableView)
-        self.setupConstraints()
+        addSubview(tableView)
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +33,7 @@ class HomeView: UIView {
     }
     
     private func setupConstraints() {
-        self.tableView.pin(to: self)
+        tableView.pin(to: self)
     }
     
 }
