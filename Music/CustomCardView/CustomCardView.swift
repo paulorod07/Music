@@ -23,7 +23,7 @@ class CustomCardView: UIView {
     var containerBottomConstraints: NSLayoutConstraint?
     var cardViewModel: CardViewModel?
     
-    // MARK: - View setup
+    // MARK: - Views
     
     lazy var cardContainerView: UIView = {
         let view = UIView()
@@ -121,17 +121,32 @@ class CustomCardView: UIView {
         return label
     }()
     
+    // MARK: - Setup
+    
+    func setupView(data: CardViewModel) {
+        cardCategoryTitleLabel.text = data.categoryName
+        cardCategoryDateLabel.text = data.categoryDate
+        cardTitleLabel.text = data.cardTitle
+        likeAndTimeLabel.attributedText = NSAttributedString.featureText(data.likeCount ?? "", data.duration ?? "")
+        descriptionTitleLabel.text = data.cardDescription
+        cardImageView.image = UIImage(named: data.cardImage ?? "")
+        cardProfileImageView.image = UIImage(named: data.categoryImage ?? "")
+    }
+    
     init(viewMode: ViewMode, cardViewModel: CardViewModel) {
         let frame: CGRect = CGRect.zero
         super.init(frame: frame)
         self.viewMode = viewMode
         self.cardViewModel = cardViewModel
         addSubview()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK: - addSubview
     
     private func addSubview() {
         addSubview(cardContainerView)
@@ -146,6 +161,59 @@ class CustomCardView: UIView {
         cardContainerView.addSubview(likeAndTimeLabel)
         cardContainerView.addSubview(descriptionTitleLabel)
         updateLayout(for: viewMode ?? .card)
+    }
+    
+    // MARK: - Constraints
+    
+    private func setupConstraints() {
+        containerLeadingConstraints = cardContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30)
+        containerLeadingConstraints?.isActive = true
+        
+        containerTopConstraints = cardContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 15)
+        containerTopConstraints?.isActive = true
+        
+        containerBottomConstraints = cardContainerView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
+        containerBottomConstraints?.isActive = true
+        
+        containerTrailingConstraints = cardContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30)
+        containerTrailingConstraints?.isActive = true
+        
+        overlayView.pin(to: cardContainerView)
+        cardImageView.pin(to: cardContainerView)
+        
+        NSLayoutConstraint.activate([
+            profileBorderView.topAnchor.constraint(equalTo: cardContainerView.topAnchor, constant: 60),
+            profileBorderView.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            profileBorderView.widthAnchor.constraint(equalToConstant: 50),
+            profileBorderView.heightAnchor.constraint(equalToConstant: 50),
+            
+            addProfileImageButton.trailingAnchor.constraint(equalTo: profileBorderView.trailingAnchor, constant: 4),
+            addProfileImageButton.bottomAnchor.constraint(equalTo: profileBorderView.bottomAnchor, constant: 4),
+            addProfileImageButton.widthAnchor.constraint(equalToConstant: 20),
+            addProfileImageButton.heightAnchor.constraint(equalToConstant: 20),
+            
+            cardProfileImageView.centerXAnchor.constraint(equalTo: profileBorderView.centerXAnchor),
+            cardProfileImageView.centerYAnchor.constraint(equalTo: profileBorderView.centerYAnchor),
+            cardProfileImageView.widthAnchor.constraint(equalToConstant: 40),
+            cardProfileImageView.heightAnchor.constraint(equalToConstant: 40),
+            
+            cardCategoryTitleLabel.topAnchor.constraint(equalTo: profileBorderView.bottomAnchor, constant: 10),
+            cardCategoryTitleLabel.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            
+            cardCategoryDateLabel.topAnchor.constraint(equalTo: cardCategoryTitleLabel.bottomAnchor, constant: 2),
+            cardCategoryDateLabel.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            
+            cardTitleLabel.topAnchor.constraint(equalTo: cardCategoryDateLabel.bottomAnchor, constant: 20),
+            cardTitleLabel.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 20),
+            cardTitleLabel.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -20),
+            
+            likeAndTimeLabel.topAnchor.constraint(equalTo: cardTitleLabel.bottomAnchor, constant: 10),
+            likeAndTimeLabel.centerXAnchor.constraint(equalTo: cardContainerView.centerXAnchor),
+            
+            descriptionTitleLabel.topAnchor.constraint(equalTo: likeAndTimeLabel.bottomAnchor, constant: 30),
+            descriptionTitleLabel.leadingAnchor.constraint(equalTo: cardContainerView.leadingAnchor, constant: 40),
+            descriptionTitleLabel.trailingAnchor.constraint(equalTo: cardContainerView.trailingAnchor, constant: -40)
+        ])
     }
     
     private func updateLayout(for mode: ViewMode) {
